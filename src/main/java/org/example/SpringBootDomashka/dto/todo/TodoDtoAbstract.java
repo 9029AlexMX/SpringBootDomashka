@@ -1,14 +1,12 @@
 package org.example.SpringBootDomashka.dto.todo;
 
-import lombok.Data;
-import org.example.SpringBootDomashka.model.Todo.Priority;
+import org.example.SpringBootDomashka.model.Todo;
 
 import java.time.LocalDateTime;
 
-@Data
-public class CreateTodoDto {
+public abstract class TodoDtoAbstract {
     private String title;
     private String description;
     private LocalDateTime dueDate;
-    private Priority priority;
+    private Todo.Priority priority;
 }
