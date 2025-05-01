@@ -1,0 +1,50 @@
+databaseChangeLog:
+  -  changeSet:
+       id: task-history-create-table
+       author:  alexey.fedorov
+       changes:
+         - createTable:
+             columns:
+               - column:
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+               - column:
+                   name:  todo_id
+                   type:  bigint
+                   constraints:
+                     nullable: false
+               - column:
+                   name: old_state
+                   type: varchar(2048)
+                   constraints:
+                     nullable: false
+               - column:
+                   name: new_state
+                   type: varchar(2048)
+                   constraints:
+                     nullable: false
+               - column:
+                   name: change_date
+                   type: TIMESTAMP
+                   constraints:
+                     nullable: false
+               - column:
+                   name: changed_by
+                   type: varchar(64)
+                   constraints:
+                     nullable: false
+             tableName:  task_history
+         - addForeignKeyConstraint:
+             baseColumnNames: todo_id
+             baseTableName: task_history
+             constraintName: fk_todo_id
+             onDelete: CASCADE
+             referencedColumnNames: id
+             referencedTableName: todo
+       rollback:
+         - dropTable:
+             tableName: task_history
